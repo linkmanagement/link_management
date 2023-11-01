@@ -1,10 +1,14 @@
-import styles from '@/styles/Home.module.css'
+import React from 'react'
+import dynamic from 'next/dynamic'
+import Preview from '@/components/Preview'
 
+const Editor = dynamic(() => import('../components/Editor'), { ssr: false })
 
 export default function Home() {
   return (
     <>
-      <h1 className={styles.title}>Welcome to Next</h1>
+      <Editor />
+      <Preview markdown={"# hello"} />
     </>
   )
 }
