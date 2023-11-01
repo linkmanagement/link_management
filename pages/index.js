@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Editor />
-      <Preview markdown={"# hello"} />
+      {/* <Preview markdown={"# hello"} /> */}
     </>
   )
 }

@@ -10,6 +10,7 @@ import { BlockTypeSelect, CreateLink, linkDialogPlugin } from '@mdxeditor/editor
 
 
 
+
 const PlainTextCodeEditorDescriptor = {
     match: () => true,
     priority: 0,
@@ -24,31 +25,30 @@ const PlainTextCodeEditorDescriptor = {
 }
 
 function Editor() {
-    
+
     return (
-        <div>
-            <MDXEditor
-                markdown={""}
-                contentEditableClassName="prose"
-                plugins={[
-                    codeBlockPlugin({ codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor] }),
-                    headingsPlugin(),
-                    listsPlugin(),
-                    linkPlugin(),
-                    quotePlugin(),
-                    markdownShortcutPlugin(),
-                    linkDialogPlugin(),
-                    toolbarPlugin({
-                        toolbarContents: () => (<>
-                            <UndoRedo />
-                            <BoldItalicUnderlineToggles />
-                            <CreateLink />
-                            <BlockTypeSelect />
-                        </>)
-                    })
-                ]}
-            />
-        </div>
+        <MDXEditor
+            markdown={""}
+            contentEditableClassName="prose"
+            className="dark-theme dark-editor"
+            plugins={[
+                codeBlockPlugin({ codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor] }),
+                headingsPlugin(),
+                listsPlugin(),
+                linkPlugin(),
+                quotePlugin(),
+                markdownShortcutPlugin(),
+                linkDialogPlugin(),
+                toolbarPlugin({
+                    toolbarContents: () => (<>
+                        <UndoRedo />
+                        <BoldItalicUnderlineToggles />
+                        <CreateLink />
+                        <BlockTypeSelect />
+                    </>)
+                })
+            ]}
+        />
     )
 
 
