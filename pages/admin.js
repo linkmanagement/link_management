@@ -144,8 +144,11 @@ function AdminMobile() {
             name: "link_1",
         },
     ])
-    let [selectedLink, setSelectedLink] = useState(null);
-
+    let [selectedLink, setSelectedLink] = useState(null)
+    let [role, setRole] = useState("")
+    let [title, setTitle] = useState("")
+    let [link, setLink] = useState("")
+    let [video, setVideo] = useState("")
     let [pageMode, setPageMode] = useState(TAB_OPTIONS.SEARCH);
 
     return (
@@ -187,7 +190,34 @@ function AdminMobile() {
             {
                 (pageMode == TAB_OPTIONS.EDIT) &&
                 <div className={mobile_styles.main_content}>
-                    EDIT
+
+                    <div className={mobile_styles.input_container}>
+                        <h2>Role</h2>
+                        <input type="text" placeholder="Role" onChange={(e) => { setRole(e.target.value) }} />
+                        <button>Update</button>
+                    </div>
+                    <div className={mobile_styles.input_container}>
+                        <h2>Title</h2>
+                        <input type="text" placeholder="title" onChange={(e) => { setTitle(e.target.value) }} />
+                        <button>Update</button>
+                    </div>
+                    <div className={mobile_styles.input_container}>
+                        <h2>Link</h2>
+                        <input type="text" placeholder="Link" onChange={(e) => { setLink(e.target.value) }} />
+                        <button>Update</button>
+                    </div>
+                    <div className={mobile_styles.input_container}>
+                        <h2>Video</h2>
+                        <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} />
+                        <button>Update</button>
+                    </div>
+                    <div>
+                        <Editor />
+                    </div>
+
+                    <div className={mobile_styles.input_container} onChange={(e) => { setVideo(e.target.value) }}>
+                        <button>Update</button>
+                    </div>
                 </div>
             }
 
