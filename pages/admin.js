@@ -21,8 +21,36 @@ function AdminDesktop() {
     let [title, setTitle] = useState("")
     let [link, setLink] = useState("")
     let [video, setVideo] = useState("")
+    let [isAdding, setIsAdding] = useState(true);
+
     return (
         <div className={styles.main}>
+            {
+                isAdding &&
+                <div className={styles.overlay}>
+                    <div className={styles.add_box}>
+
+
+                        <div className={styles.close_overlay}>
+                            <h2>Adding New Link</h2>
+
+                        </div>
+                        <div className={styles.add_box_main}>
+                            <input type="text" placeholder="Enter link name" />
+                            <div className={styles.overlay_buttons}>
+
+
+                                <button onClick={() => { setIsAdding(!isAdding) }}
+                                >cancel</button>
+                                <button onClick={() => { setIsAdding(!isAdding) }}
+                                >
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className={styles.sidebar}>
                 <div className={styles.searchBar}>
                     <input type="text" placeholder="Enter link name" />
@@ -42,7 +70,7 @@ function AdminDesktop() {
             <div className={styles.right_panel}>
                 <div className={styles.topbar}>
                     <div className={styles.adminTitle}><h1>Admin Dashboard</h1></div>
-                    <button>Add New Link</button>
+                    <button onClick={() => { setIsAdding(true) }}>Add New Link</button>
                     <button>Delete Link</button>
                 </div>
                 {
@@ -233,6 +261,6 @@ function AdminMobile() {
 }
 export default function Admin() {
     return (
-        <AdminMobile />
+        <AdminDesktop />
     )
 }
