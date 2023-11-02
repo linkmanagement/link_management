@@ -2,31 +2,35 @@ import styles from "@/styles/admin.module.css"
 import mobile_styles from "@/styles/admin.mobile.module.css"
 import dynamic from "next/dynamic"
 import { useState, useEffect } from "react"
+import useLinks from "@/hooks/useLinks"
 const Editor = dynamic(() => import('../components/Editor'), { ssr: false })
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 
 function AdminDesktop() {
-    let [links, setLinks] = useState([
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_2",
-        },
-        {
-            name: "link_1"
-        }
-    ])
+
     let [selectedLink, setSelectedLink] = useState(null)
-    let [role, setRole] = useState("")
-    let [title, setTitle] = useState("")
-    let [link, setLink] = useState("")
-    let [video, setVideo] = useState("")
+
     let [isAdding, setIsAdding] = useState(false);
+
+    let {
+        links,
+        role, setRole,
+        title, setTitle,
+        link, setLink,
+        video, setVideo,
+
+        notification,
+
+        updateRoleInDatabase
+    } = useLinks(selectedLink);
+
+
+    const notify = (notification) => toast(notification);
+
 
     return (
         <div className={styles.main}>
@@ -92,23 +96,31 @@ function AdminDesktop() {
                     selectedLink &&
                     <div className={styles.main_content}>
                         <div className={styles.input_container}>
-                            <h2>Role</h2>
-                            <input type="text" placeholder="Role" onChange={(e) => { setRole(e.target.value) }} />
+                            <h2>Name</h2>
+                            <input type="text" placeholder="Name" value={link} onChange={(e) => { setLink(e.target.value) }} />
                             <button>Update</button>
+                        </div>
+                        <div className={styles.input_container}>
+                            <h2>Role</h2>
+                            <input type="text" placeholder="Role" value={role} onChange={(e) => {
+                                setRole(e.target.value);
+
+                            }} />
+                            <button
+                                onClick={async () => {
+                                    await updateRoleInDatabase();
+                                    notify(notification);
+                                }}
+                            >Update</button>
                         </div>
                         <div className={styles.input_container}>
                             <h2>Title</h2>
-                            <input type="text" placeholder="title" onChange={(e) => { setTitle(e.target.value) }} />
-                            <button>Update</button>
-                        </div>
-                        <div className={styles.input_container}>
-                            <h2>Link</h2>
-                            <input type="text" placeholder="Link" onChange={(e) => { setLink(e.target.value) }} />
+                            <input type="text" placeholder="title" value={title} onChange={(e) => { setTitle(e.target.value) }} />
                             <button>Update</button>
                         </div>
                         <div className={styles.input_container}>
                             <h2>Video</h2>
-                            <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} />
+                            <input type="text" placeholder="Video" value={video} onChange={(e) => { setVideo(e.target.value) }} />
                             <button>Update</button>
                         </div>
 
@@ -128,6 +140,17 @@ function AdminDesktop() {
 
             </div>
 
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                theme="dark" />
         </div>
     )
 }
@@ -140,58 +163,17 @@ const TAB_OPTIONS = {
 
 function AdminMobile() {
 
-    let [links, setLinks] = useState([
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_2",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_2",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-        {
-            name: "link_1",
-        },
-    ])
-    let [selectedLink, setSelectedLink] = useState(null)
-    let [role, setRole] = useState("")
-    let [title, setTitle] = useState("")
-    let [link, setLink] = useState("")
-    let [video, setVideo] = useState("")
+    let [selectedLink, setSelectedLink] = useState(null);
+
+    let {
+        links,
+        role, setRole,
+        title, setTitle,
+        link, setLink,
+        video, setVideo,
+        setMarkdown, markdown
+    } = useLinks(selectedLink);
+
     let [pageMode, setPageMode] = useState(TAB_OPTIONS.SEARCH);
 
     return (
@@ -241,27 +223,27 @@ function AdminMobile() {
                 <div className={mobile_styles.main_content}>
 
                     <div className={mobile_styles.input_container}>
-                        <h2>Role</h2>
-                        <input type="text" placeholder="Role" onChange={(e) => { setRole(e.target.value) }} />
+                        <h2>Name</h2>
+                        <input type="text" placeholder="Name" onChange={(e) => { setLink(e.target.value) }} value={link} />
                         <button>Update</button>
+                    </div>
+                    <div className={mobile_styles.input_container}>
+                        <h2>Role</h2>
+                        <input type="text" placeholder="Role" onChange={(e) => { setRole(e.target.value) }} value={role} />
                     </div>
                     <div className={mobile_styles.input_container}>
                         <h2>Title</h2>
-                        <input type="text" placeholder="title" onChange={(e) => { setTitle(e.target.value) }} />
+                        <input type="text" placeholder="title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
                         <button>Update</button>
                     </div>
-                    <div className={mobile_styles.input_container}>
-                        <h2>Link</h2>
-                        <input type="text" placeholder="Link" onChange={(e) => { setLink(e.target.value) }} />
-                        <button>Update</button>
-                    </div>
+
                     <div className={mobile_styles.input_container}>
                         <h2>Video</h2>
-                        <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} />
+                        <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} value={video} />
                         <button>Update</button>
                     </div>
                     <div>
-                        <Editor />
+                        <Editor markdown={markdown} setMarkdown={setMarkdown} />
                     </div>
 
                     <div className={mobile_styles.input_container} onChange={(e) => { setVideo(e.target.value) }}>

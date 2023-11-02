@@ -24,14 +24,16 @@ const PlainTextCodeEditorDescriptor = {
     }
 }
 
-function Editor() {
+function Editor({ markdown, setMarkdown }) {
+
+    let currentMarkdown = markdown ? markdown : "";
 
     return (
         <MDXEditor
-            markdown={""}
+            markdown={currentMarkdown}
             contentEditableClassName="prose"
             className="dark-theme dark-editor"
-            onChange={(value) => { console.log(value) }}
+            onChange={(value) => { setMarkdown(value) }}
             plugins={[
                 codeBlockPlugin({ codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor] }),
                 headingsPlugin(),
