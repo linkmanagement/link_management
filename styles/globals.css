@@ -39,6 +39,27 @@
 }
 
 .mdxeditor {
-  height: 200px;
+  height: 500px;
   overflow-y: scroll;
+  width: 80%;
+  margin: auto;
+  border-radius: 20px;
+  margin-top: 50px;
+  border: 1px solid #ffffff30;
+}
+
+.mdxeditor::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.mdxeditor {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.mdxeditor > div{
+  width: 100%;
 }
