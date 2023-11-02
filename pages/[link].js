@@ -32,7 +32,7 @@ function Title({ title }) {
     }
 
 
-    return <h1 className={styles.title}><span style={{ color: "#ff4500", marginRight: "10px" }}>{firstWord}</span>{secondWord}</h1>
+    return <h1 className={styles.title}><span style={{ color: "#024a74", marginRight: "10px" }}>{firstWord}</span>{secondWord}</h1>
 }
 
 let markdown = `
@@ -51,6 +51,7 @@ export default function Home({ slug }) {
             if (slug) {
                 let data = await getLinkByName(slug);
                 setLink(data);
+                console.log(data.markdown);
             }
         }
 
