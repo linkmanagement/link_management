@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mdxeditor/editor": "^1.5.0",
+    "@react-hooks-library/core": "^0.5.1",
     "firebase": "^9.19.1",
     "next": "13.2.4",
     "react": "18.2.0",

@@ -1,8 +1,13 @@
 import styles from "@/styles/admin.module.css"
 import mobile_styles from "@/styles/admin.mobile.module.css"
 import dynamic from "next/dynamic"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 const Editor = dynamic(() => import('../components/Editor'), { ssr: false })
+
+
+
+
+
 
 function AdminDesktop() {
     let [links, setLinks] = useState([
@@ -184,13 +189,19 @@ function AdminMobile() {
             <div className={mobile_styles.nav_bar}>
 
                 <div className={mobile_styles.nav_bar_option} onClick={() => { setPageMode(TAB_OPTIONS.SEARCH) }}>
-                    <button>Search</button>
+                    <button
+                        style={{ backgroundColor: `${(TAB_OPTIONS.SEARCH == pageMode ? "#1e3d6e" : "#4d91ff")}` }}
+                    >Search</button>
                 </div>
                 <div className={mobile_styles.nav_bar_option}>
-                    <button>Edit</button>
+                    <button
+                        style={{ backgroundColor: `${(TAB_OPTIONS.EDIT == pageMode ? "#1e3d6e" : "#4d91ff")}` }}
+                    >Edit</button>
                 </div>
                 <div className={mobile_styles.nav_bar_option} onClick={() => { setPageMode(TAB_OPTIONS.ADD) }}>
-                    <button>Add</button>
+                    <button
+                        style={{ backgroundColor: `${(TAB_OPTIONS.ADD == pageMode ? "#1e3d6e" : "#4d91ff")}` }}
+                    >Add</button>
                 </div>
             </div>
 
@@ -253,14 +264,34 @@ function AdminMobile() {
             {
                 (pageMode == TAB_OPTIONS.ADD) &&
                 <div className={mobile_styles.main_content}>
-                    ADD
-                </div>
+                      
+
+
+                            <div className={mobile_styles.adding_link}>
+                                <h2>Adding New Link</h2>
+
+                            </div>
+                            <div className={mobile_styles.add_box_main}>
+                                <input type="text" placeholder="Enter link name" />
+                                <div className={styles.overlay_buttons}>
+
+                                    <button onClick={() => { setIsAdding(!isAdding) }}
+                                    >
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
             }
         </div>
     )
 }
 export default function Admin() {
+
     return (
-        <AdminDesktop />
+        <>
+            <AdminMobile />
+            <AdminDesktop />
+        </>
     )
 }

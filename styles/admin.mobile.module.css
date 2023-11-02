@@ -1,7 +1,8 @@
 .main {
     height: 100vh;
-    display: flex;
     flex-direction: column;
+    overflow-x: none;
+    display: none;
 }
 
 .nav_bar {
@@ -83,6 +84,16 @@
     flex-direction: column;
     align-items: center;
     padding-top: 50px;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+
+
+}
+
+.link_container::-webkit-scrollbar {
+    display: none;
 }
 
 .link_container .link {
@@ -173,4 +184,43 @@
     cursor: not-allowed;
     background: rgba(0, 0, 0, .08);
     color: rgba(0, 0, 0, .3);
+}
+
+.main_content .adding_link {
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.main_content .add_box_main input {
+    height: 40px;
+    width: 300px;
+    outline: none;
+    border: none;
+    background-color: #3a3b3d;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border: 0.2px solid #ffffff40;
+    border-radius: 30px;
+    padding-left: 20px;
+    color: white;
+    text-align: center;
+}
+
+.main_content .add_box_main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: auto;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+
+    /* Your CSS styles for screens with a maximum width of 768px and below go here */
+    .main {
+        display: flex;
+    }
 }
