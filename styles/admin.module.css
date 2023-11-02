@@ -259,6 +259,8 @@
     flex: 1;
     padding-top: 10px;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .input_container {

@@ -80,7 +80,7 @@ export default function Home({ slug }) {
             {
                 link && link.markdown &&
                 <Preview
-                    markdown={markdown} />
+                    markdown={link.markdown} />
 
             }
 

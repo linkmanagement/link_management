@@ -211,7 +211,9 @@ const TAB_OPTIONS = {
 
 function AdminMobile() {
 
-    let [selectedLink, setSelectedLink] = useState(null);
+
+    let [selectedLink, setSelectedLink] = useState(null)
+
 
     let {
         links,
@@ -219,8 +221,24 @@ function AdminMobile() {
         title, setTitle,
         link, setLink,
         video, setVideo,
-        setMarkdown, markdown
-    } = useLinks(selectedLink);
+        markdown, setMarkdown,
+        newLink, setNewLink,
+        keyword, setKeyword,
+        forceRender,
+
+
+        updateRoleInDatabase,
+        updateTitleInDatabse,
+        updateVideoInDatabase,
+        updateMarkdownInDatabase,
+        updateNameInDatabase,
+        createLinkInDatabase,
+        deleteLinkFromDatabase,
+
+
+    } = useLinks(selectedLink, setSelectedLink);
+
+    const notify = (notification) => toast(notification);
 
     let [pageMode, setPageMode] = useState(TAB_OPTIONS.SEARCH);
 
@@ -249,11 +267,13 @@ function AdminMobile() {
                 (pageMode == TAB_OPTIONS.SEARCH) &&
                 <div className={mobile_styles.main_content}>
                     <div className={mobile_styles.searchBar}>
-                        <input type="text" placeholder="Enter link name" />
+                        <input type="text" placeholder="Enter link name" value={keyword}
+                            onChange={(e) => { setKeyword(e.target.value) }}
+                        />
                     </div>
                     <div className={mobile_styles.link_container}>
                         {
-                            links.map((link, index) => {
+                            links.filter(link => link.name.toLowerCase().includes(keyword.toLowerCase())).map((link, index) => {
                                 return (
                                     <div className={mobile_styles.link} key={index} onClick={() => { setSelectedLink(link); setPageMode(TAB_OPTIONS.EDIT) }}>
                                         {link.name}
@@ -271,31 +291,63 @@ function AdminMobile() {
                 <div className={mobile_styles.main_content}>
 
                     <div className={mobile_styles.input_container}>
+                        <button
+                            onClick={async () => {
+                                let current = await deleteLinkFromDatabase();
+                                setPageMode(TAB_OPTIONS.SEARCH)
+                                notify(current);
+                            }}>Delete Link</button>
+                    </div>
+
+                    <div className={mobile_styles.input_container}>
                         <h2>Name</h2>
                         <input type="text" placeholder="Name" onChange={(e) => { setLink(e.target.value) }} value={link} />
-                        <button>Update</button>
+                        <button
+                            onClick={async () => {
+                                let current = await updateNameInDatabase();
+                                notify(current);
+                            }}>Update</button>
+
                     </div>
+
+
                     <div className={mobile_styles.input_container}>
                         <h2>Role</h2>
                         <input type="text" placeholder="Role" onChange={(e) => { setRole(e.target.value) }} value={role} />
+                        <button onClick={async () => {
+                            let current = await updateRoleInDatabase();
+                            notify(current);
+                        }}>Update</button>
                     </div>
                     <div className={mobile_styles.input_container}>
                         <h2>Title</h2>
                         <input type="text" placeholder="title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
-                        <button>Update</button>
+                        <button
+                            onClick={async () => {
+                                let current = await updateTitleInDatabse();
+                                notify(current);
+                            }}>Update</button>
                     </div>
 
                     <div className={mobile_styles.input_container}>
                         <h2>Video</h2>
                         <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} value={video} />
-                        <button>Update</button>
+                        <button
+                            onClick={async () => {
+                                let current = await updateVideoInDatabase();
+                                notify(current);
+                            }}>Update</button>
                     </div>
                     <div className="editor">
-                        <Editor markdown={markdown} setMarkdown={setMarkdown} />
+                        <Editor key={forceRender ? 'forceRender' : 'noForceRender'} markdown={markdown} setMarkdown={setMarkdown} />
                     </div>
 
-                    <div className={mobile_styles.input_container} onChange={(e) => { setVideo(e.target.value) }}>
-                        <button>Update</button>
+                    <div className={mobile_styles.input_container}>
+                        <button
+                            onClick={async () => {
+                                let current = await updateMarkdownInDatabase();
+                                notify(current);
+                            }}>Update</button>
                     </div>
                 </div>
             }
@@ -312,10 +364,18 @@ function AdminMobile() {
 
                     </div>
                     <div className={mobile_styles.add_box_main}>
-                        <input type="text" placeholder="Enter link name" />
+                        <input type="text" placeholder="Enter link name" value={newLink}
+                            onChange={(e) => { setNewLink(e.target.value) }}
+                        />
                         <div className={styles.overlay_buttons}>
 
-                            <button onClick={() => { setIsAdding(!isAdding) }}
+                            <button onClick={async () => {
+                                let current = await createLinkInDatabase();
+                                if (current === "Successfully created a new link!") {
+                                    setPageMode(TAB_OPTIONS.SEARCH)
+                                }
+                                notify(current);
+                            }}
                             >
                                 Add
                             </button>
@@ -323,6 +383,18 @@ function AdminMobile() {
                     </div>
                 </div>
             }
+
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+                theme="dark" />
         </div>
     )
 }

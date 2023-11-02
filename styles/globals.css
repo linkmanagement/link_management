@@ -46,9 +46,9 @@ body {
   background: var(--baseBg);
 }
 
-/* 
+
 .mdxeditor {
-  height: 500px;
+  height: 400px;
   overflow-y: scroll;
   width: 80%;
   margin: auto;
@@ -68,19 +68,22 @@ body {
 
 .mdxeditor>div {
   width: 100%;
-} */
+}
 
-.editor {
-  height: 400px;
+/* .editor {
+  flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
   overflow-y: scroll;
-  background-color: black;
+  background-color: rebeccapurple;
+
 }
 
 .editor>div {
   flex: 1;
-}
+  border-bottom: 1px solid #ffffff40;
+} */
 
 .markdown_div {
   width: 60vw;
@@ -125,7 +128,6 @@ body {
   }
 
   .editor>div {
-    flex: 0.8;
     border-bottom: 1px solid #ffffff40;
   }
 
