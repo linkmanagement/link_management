@@ -58,7 +58,10 @@ function AdminDesktop() {
             }
             <div className={styles.sidebar}>
                 <div className={styles.searchBar}>
-                    <input type="text" placeholder="Enter link name" />
+                    <input type="text" placeholder="Enter link name"
+
+                        onChange={(e) => { setSelectedLink(null) }}
+                    />
                 </div>
                 <div className={styles.link_container}>
                     {
@@ -74,9 +77,16 @@ function AdminDesktop() {
             </div>
             <div className={styles.right_panel}>
                 <div className={styles.topbar}>
-                    <div className={styles.adminTitle}><h1>Admin Dashboard</h1></div>
+                    <div className={styles.adminTitle}><h1>
+                        {
+                            selectedLink ? "https://link-management.onrender.com/" + selectedLink?.name : "Admin Dashboard"
+                        }
+                    </h1></div>
                     <button onClick={() => { setIsAdding(true) }}>Add New Link</button>
-                    <button>Delete Link</button>
+                    {
+                        selectedLink &&
+                        <button>Delete Link</button>
+                    }
                 </div>
                 {
                     selectedLink &&
