@@ -1,14 +1,13 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
-import Preview from '@/components/Preview'
+import styles from '@/styles/Home.module.css'
+// import Preview from '@/components/Preview'
+{/* <Preview markdown={"# hello"} /> */ }
 
-const Editor = dynamic(() => import('../components/Editor'), { ssr: false })
 
 export default function Home() {
   return (
     <>
-      <Editor />
-      {/* <Preview markdown={"# hello"} /> */}
     </>
   )
 }

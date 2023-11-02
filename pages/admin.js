@@ -26,7 +26,7 @@ function AdminDesktop() {
     let [title, setTitle] = useState("")
     let [link, setLink] = useState("")
     let [video, setVideo] = useState("")
-    let [isAdding, setIsAdding] = useState(true);
+    let [isAdding, setIsAdding] = useState(false);
 
     return (
         <div className={styles.main}>
@@ -264,24 +264,24 @@ function AdminMobile() {
             {
                 (pageMode == TAB_OPTIONS.ADD) &&
                 <div className={mobile_styles.main_content}>
-                      
 
 
-                            <div className={mobile_styles.adding_link}>
-                                <h2>Adding New Link</h2>
 
-                            </div>
-                            <div className={mobile_styles.add_box_main}>
-                                <input type="text" placeholder="Enter link name" />
-                                <div className={styles.overlay_buttons}>
+                    <div className={mobile_styles.adding_link}>
+                        <h2>Adding New Link</h2>
 
-                                    <button onClick={() => { setIsAdding(!isAdding) }}
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-                            </div>
+                    </div>
+                    <div className={mobile_styles.add_box_main}>
+                        <input type="text" placeholder="Enter link name" />
+                        <div className={styles.overlay_buttons}>
+
+                            <button onClick={() => { setIsAdding(!isAdding) }}
+                            >
+                                Add
+                            </button>
                         </div>
+                    </div>
+                </div>
             }
         </div>
     )
