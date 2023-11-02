@@ -16,15 +16,9 @@ function Title({ title }) {
     // Split the string based on the first space position
     firstWord = title.substring(0, spaceIndex);
     secondWord = title.substring(spaceIndex + 1);
+  } 
 
-    console.log("firstWord:", firstWord);
-    console.log("secondWord:", secondWord);
-  } else {
-    console.log("The string does not contain a space.");
-  }
-
-
-  return <h1 className={styles.title}><span style={{ color: "#ff4500", marginRight: "10px" }}>{firstWord}</span>{secondWord}</h1>
+  return <h1 className={styles.title}><span style={{ color: "#1880bd", marginRight: "10px" }}>{firstWord}</span>{secondWord}</h1>
 }
 
 let markdown = `

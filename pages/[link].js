@@ -25,14 +25,10 @@ function Title({ title }) {
         firstWord = title.substring(0, spaceIndex);
         secondWord = title.substring(spaceIndex + 1);
 
-        console.log("firstWord:", firstWord);
-        console.log("secondWord:", secondWord);
-    } else {
-        console.log("The string does not contain a space.");
     }
 
 
-    return <h1 className={styles.title}><span style={{ color: "#024a74", marginRight: "10px" }}>{firstWord}</span>{secondWord}</h1>
+    return <h1 className={styles.title}><span style={{ color: "#1880bd", marginRight: "10px" }}>{firstWord}</span>{secondWord}</h1>
 }
 
 let markdown = `
@@ -43,6 +39,7 @@ export default function Home({ slug }) {
 
     // const router = useRouter();
     let [link, setLink] = useState(null);
+    let [noData, setNoData] = useState(false);
 
 
     useEffect(() => {
@@ -51,13 +48,25 @@ export default function Home({ slug }) {
             if (slug) {
                 let data = await getLinkByName(slug);
                 setLink(data);
-                console.log(data.markdown);
+                if(!data) setNoData(true);
             }
         }
 
         fetchData();
 
     }, [slug])
+
+    if (!link) {
+        return (
+            <div className={styles.main} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <h1>
+                   {
+                          noData ? "No data found" : "Loading..."
+                   }
+                </h1>
+            </div>
+        )
+    }
 
     return (
         <div className={styles.main}>
@@ -92,7 +101,6 @@ export default function Home({ slug }) {
 export async function getServerSideProps({ params }) {
     // Use the slug from the URL to fetch data from your database
     const slug = params.link; // 'page' should match the dynamic segment in your route
-    console.log('ok', slug)
 
     return {
         props: {
