@@ -1,0 +1,101 @@
+.main {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav_bar {
+    background-color: #212429;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(112, 112, 112, 0.2) 0px -3px 0px inset;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.main_content {
+    flex: 1;
+    background-color: #212429;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.nav_bar_option button {
+    align-items: center;
+    background-color: #4d91ff;
+    border: 0;
+    border-radius: 100px;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 20px;
+    max-width: 480px;
+    min-height: 45px;
+    min-width: 0px;
+    overflow: hidden;
+    padding: 0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    touch-action: manipulation;
+    transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    border: 1px solid #ffffff40;
+
+}
+
+
+.main_content .searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    width: 100vw;
+}
+
+.main_content .searchBar input {
+    height: 40px;
+    width: 300px;
+    outline: none;
+    border: none;
+    background-color: #3a3b3d;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border: 0.2px solid #ffffff40;
+    border-radius: 30px;
+    padding-left: 20px;
+    color: white;
+}
+
+.link_container {
+    overflow-y: scroll;
+    flex: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.link_container .link {
+    background-color: #2f3339;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border: 0.2px solid #ffffff20;
+    margin: 10px;
+    width: 280px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 20px;
+    text-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -153,6 +153,7 @@
 .main_content {
     flex: 1;
     padding-top: 10px;
+    overflow-y: scroll;
 }
 
 .input_container {

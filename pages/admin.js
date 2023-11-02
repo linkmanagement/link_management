@@ -11,6 +11,9 @@ function AdminDesktop() {
         },
         {
             name: "link_2",
+        },
+        {
+            name: "link_1"
         }
     ])
     let [selectedLink, setSelectedLink] = useState(null)
@@ -60,13 +63,16 @@ function AdminDesktop() {
                             <input type="text" placeholder="Link" onChange={(e) => { setLink(e.target.value) }} />
                             <button>Update</button>
                         </div>
-                        <div className={styles.input_container} onChange={(e) => { setVideo(e.target.value) }}>
+                        <div className={styles.input_container}>
                             <h2>Video</h2>
-                            <input type="text" placeholder="Video" />
+                            <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} />
                             <button>Update</button>
                         </div>
 
                         <Editor />
+                        <div className={styles.input_container} onChange={(e) => { setVideo(e.target.value) }}>
+                            <button>Update</button>
+                        </div>
                     </div>
 
                 }
@@ -91,6 +97,55 @@ const TAB_OPTIONS = {
 
 function AdminMobile() {
 
+    let [links, setLinks] = useState([
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_2",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_2",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+        {
+            name: "link_1",
+        },
+    ])
+    let [selectedLink, setSelectedLink] = useState(null);
+
     let [pageMode, setPageMode] = useState(TAB_OPTIONS.SEARCH);
 
     return (
@@ -98,20 +153,33 @@ function AdminMobile() {
             <div className={mobile_styles.nav_bar}>
 
                 <div className={mobile_styles.nav_bar_option} onClick={() => { setPageMode(TAB_OPTIONS.SEARCH) }}>
-                    Search
+                    <button>Search</button>
                 </div>
-                <div className={mobile_styles.nav_bar_option} onClick={() => { setPageMode(TAB_OPTIONS.EDIT) }}>
-                    Edit
+                <div className={mobile_styles.nav_bar_option}>
+                    <button>Edit</button>
                 </div>
                 <div className={mobile_styles.nav_bar_option} onClick={() => { setPageMode(TAB_OPTIONS.ADD) }}>
-                    add
+                    <button>Add</button>
                 </div>
             </div>
 
             {
                 (pageMode == TAB_OPTIONS.SEARCH) &&
                 <div className={mobile_styles.main_content}>
-                    SEARCH
+                    <div className={mobile_styles.searchBar}>
+                        <input type="text" placeholder="Enter link name" />
+                    </div>
+                    <div className={mobile_styles.link_container}>
+                        {
+                            links.map((link, index) => {
+                                return (
+                                    <div className={mobile_styles.link} key={index} onClick={() => { setSelectedLink(link); setPageMode(TAB_OPTIONS.EDIT) }}>
+                                        {link.name}
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
             }
 
