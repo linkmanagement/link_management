@@ -34,6 +34,7 @@ function Editor({ markdown, setMarkdown }) {
             contentEditableClassName="prose"
             className="dark-theme dark-editor"
             onChange={(value) => { setMarkdown(value) }}
+            height={400}
             plugins={[
                 codeBlockPlugin({ codeBlockEditorDescriptors: [PlainTextCodeEditorDescriptor] }),
                 headingsPlugin(),

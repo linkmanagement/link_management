@@ -22,14 +22,28 @@ function AdminDesktop() {
         title, setTitle,
         link, setLink,
         video, setVideo,
+        markdown, setMarkdown,
+        newLink, setNewLink,
+        keyword, setKeyword,
+        forceRender,
 
-        notification,
 
-        updateRoleInDatabase
-    } = useLinks(selectedLink);
+        updateRoleInDatabase,
+        updateTitleInDatabse,
+        updateVideoInDatabase,
+        updateMarkdownInDatabase,
+        updateNameInDatabase,
+        createLinkInDatabase,
+        deleteLinkFromDatabase,
+
+
+    } = useLinks(selectedLink, setSelectedLink);
+
+
 
 
     const notify = (notification) => toast(notification);
+
 
 
     return (
@@ -45,13 +59,22 @@ function AdminDesktop() {
 
                         </div>
                         <div className={styles.add_box_main}>
-                            <input type="text" placeholder="Enter link name" />
+                            <input type="text" placeholder="Enter link name"
+                                value={newLink}
+                                onChange={(e) => { setNewLink(e.target.value) }}
+                            />
                             <div className={styles.overlay_buttons}>
 
 
                                 <button onClick={() => { setIsAdding(!isAdding) }}
                                 >cancel</button>
-                                <button onClick={() => { setIsAdding(!isAdding) }}
+                                <button onClick={async () => {
+                                    let current = await createLinkInDatabase();
+                                    if (current === "Successfully created a new link!") {
+                                        setIsAdding(!isAdding);
+                                    }
+                                    notify(current);
+                                }}
                                 >
                                     Add
                                 </button>
@@ -63,13 +86,15 @@ function AdminDesktop() {
             <div className={styles.sidebar}>
                 <div className={styles.searchBar}>
                     <input type="text" placeholder="Enter link name"
-
-                        onChange={(e) => { setSelectedLink(null) }}
+                        onChange={(e) => {
+                            setSelectedLink(null);
+                            setKeyword(e.target.value);
+                        }}
                     />
                 </div>
                 <div className={styles.link_container}>
                     {
-                        links.map((link, index) => {
+                        links.filter(link => link.name.toLowerCase().includes(keyword.toLowerCase())).map((link, index) => {
                             return (
                                 <div className={styles.link} key={index} onClick={() => { setSelectedLink(link) }}>
                                     {link.name}
@@ -89,7 +114,12 @@ function AdminDesktop() {
                     <button onClick={() => { setIsAdding(true) }}>Add New Link</button>
                     {
                         selectedLink &&
-                        <button>Delete Link</button>
+                        <button
+                            onClick={async () => {
+                                let current = await deleteLinkFromDatabase();
+                                notify(current);
+                            }}
+                        >Delete Link</button>
                     }
                 </div>
                 {
@@ -98,7 +128,11 @@ function AdminDesktop() {
                         <div className={styles.input_container}>
                             <h2>Name</h2>
                             <input type="text" placeholder="Name" value={link} onChange={(e) => { setLink(e.target.value) }} />
-                            <button>Update</button>
+                            <button
+                                onClick={async () => {
+                                    let current = await updateNameInDatabase();
+                                    notify(current);
+                                }}>Update</button>
                         </div>
                         <div className={styles.input_container}>
                             <h2>Role</h2>
@@ -108,25 +142,39 @@ function AdminDesktop() {
                             }} />
                             <button
                                 onClick={async () => {
-                                    await updateRoleInDatabase();
-                                    notify(notification);
+                                    let current = await updateRoleInDatabase();
+                                    notify(current);
                                 }}
                             >Update</button>
                         </div>
                         <div className={styles.input_container}>
                             <h2>Title</h2>
                             <input type="text" placeholder="title" value={title} onChange={(e) => { setTitle(e.target.value) }} />
-                            <button>Update</button>
+                            <button
+                                onClick={async () => {
+                                    let current = await updateTitleInDatabse();
+                                    notify(current);
+                                }}>Update</button>
                         </div>
                         <div className={styles.input_container}>
                             <h2>Video</h2>
                             <input type="text" placeholder="Video" value={video} onChange={(e) => { setVideo(e.target.value) }} />
-                            <button>Update</button>
+                            <button
+                                onClick={async () => {
+                                    let current = await updateVideoInDatabase();
+                                    notify(current);
+                                }}>Update</button>
                         </div>
 
-                        <Editor />
+                        <div className="editor">
+                            <Editor key={forceRender ? 'forceRender' : 'noForceRender'} markdown={markdown} setMarkdown={setMarkdown} />
+                        </div>
                         <div className={styles.input_container} onChange={(e) => { setVideo(e.target.value) }}>
-                            <button>Update</button>
+                            <button
+                                onClick={async () => {
+                                    let current = await updateMarkdownInDatabase();
+                                    notify(current);
+                                }}>Update</button>
                         </div>
                     </div>
 
@@ -151,7 +199,7 @@ function AdminDesktop() {
                 draggable={false}
                 pauseOnHover={false}
                 theme="dark" />
-        </div>
+        </div >
     )
 }
 
@@ -242,7 +290,7 @@ function AdminMobile() {
                         <input type="text" placeholder="Video" onChange={(e) => { setVideo(e.target.value) }} value={video} />
                         <button>Update</button>
                     </div>
-                    <div>
+                    <div className="editor">
                         <Editor markdown={markdown} setMarkdown={setMarkdown} />
                     </div>
 
